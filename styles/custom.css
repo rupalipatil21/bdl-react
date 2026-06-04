@@ -1,0 +1,136 @@
+
+.custom-galleria .p-galleria-thumbnail-container {
+  /* display: flex;
+  flex-direction: column;  */
+  height: calc(100% - 30px);           
+  overflow-y: auto;       
+  gap: 10px;              
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+}
+
+.thumbnail-wrapper {
+  /* flex: 1 1 auto;         */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s;
+  margin: 0 7px 7px 0;
+  border: 3px solid #fff;
+}
+
+.thumbnail-wrapper img {
+  max-height: 100%;
+  width: 80px;
+  height: 55px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.thumbnail-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+.thumbnail-wrapper .caption {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #333;
+  display: none;
+}
+
+.p-galleria-thumbnail-prev,
+.p-galleria-thumbnail-next {
+    display: none;
+}
+
+.p-galleria-thumbnail-item {
+    flex: unset !important;
+    opacity: 1;
+}
+
+.custom-galleria .p-galleria-thumbnail-container:before{
+    content: "";
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.p-component {
+    font-family: "Lato";
+}
+
+.p-galleria-item-prev,
+.p-galleria-item-next {
+    width: 25px;
+    height: 25px;
+}
+.p-galleria-item-prev{
+    left: 20px;
+}
+.p-galleria-item-next{
+    right: 20px;
+}
+
+.p-galleria-item-wrapper .p-galleria-item-nav:hover{
+    background-color: #000;
+    opacity: 1 !important;
+}
+
+.p-galleria-item-nav svg{
+    height: 15px;
+}
+
+.p-galleria-item-nav {
+    background-color: #000;
+    /* opacity: 0.5; */
+    border-radius: 100px;
+}
+
+.p-galleria-item-wrapper:hover .p-galleria-item-nav{
+    opacity: 0.5;
+}
+
+.p-items-hidden .p-galleria-thumbnail-item {
+    visibility: visible;
+}
+
+.p-galleria-thumbnail-items {
+    flex-wrap: wrap;
+    transform: translate3d(-0%, 0px, 0px) !important;
+}
+
+.galleria-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Thumbnail container as bottom drawer */
+.galleria-wrapper .p-galleria-thumbnail-container {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  /* height: 100%; */
+  /* background: #000; */
+  z-index: 10;
+
+  /* 👇 hidden by default */
+  transform: translateY(100%);
+  transition: transform 0.4s ease-in-out;
+}
+
+/* 👇 when open */
+.galleria-wrapper.thumb-open .p-galleria-thumbnail-container {
+  transform: translateY(0%);
+}
