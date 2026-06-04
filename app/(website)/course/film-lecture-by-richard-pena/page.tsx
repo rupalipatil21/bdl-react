@@ -1,0 +1,23 @@
+'use client'
+import bannerimg from "@/public/pagesbannerimages/course/richard-banner.jpg"
+import FourBlocks from "@/components/common/FourBlocks";
+import { StyledContainer } from "@/styles/common.styled";
+import MoreAtBdl from "@/components/common/MoreAtBdl";
+import CommonContent from "@/components/common/CommonContent";
+import { useHeaderHeight } from "@/app/context/HeaderContext";
+import Banner from "@/components/common/Banner";
+
+export default function Page(){
+    const headerHeight = useHeaderHeight();
+    return(
+        <>
+            <Banner bannerImg={bannerimg} alt="about banner" mt={headerHeight} />
+            <CommonContent />
+            <StyledContainer pt="30px !important">
+                <MoreAtBdl />
+                <FourBlocks />
+            </StyledContainer>
+        </>
+        
+    )
+}
