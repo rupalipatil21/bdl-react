@@ -47,9 +47,14 @@ export default function ExhibitionsList(){
     const [searchText, setSearchText] = useState("")
     const [tab, setTab] = useState<string>("current");
 
+    interface DataToUpdate {
+        currentExh: typeof updateData;
+    }
+
+
     const fetchExhibitions = useCallback(async () => {
         return await getAll("exhibitions");
-    }, []);
+    }, [getAll]);
 
     const {refresh, data, loading } = useRefreshData(fetchExhibitions)
 
@@ -95,7 +100,7 @@ export default function ExhibitionsList(){
         setDialog({open: false, mode: null});
     }
 
-    const handleSubmit = async ({ids, dataToUpdate}:{ids: string[], dataToUpdate: any}) => {
+    const handleSubmit = async ({ids, dataToUpdate}:{ids: string[], dataToUpdate: DataToUpdate}) => {
         const res = await fetch("/api/update-many", {
             method: "PUT",
             body: JSON.stringify({

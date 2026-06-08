@@ -13,7 +13,7 @@ export function useSticky(options: StickyOptions = {}) {
   const ref = useRef<HTMLDivElement | null>(null);
   const spacerRef = useRef<HTMLDivElement | null>(null);
   const [isSticky, setIsSticky] = useState(false);
-  const [scrollCount, setScrollCount] = useState(0);
+  const [, setScrollCount] = useState(0);
 
   const recalc = useCallback(() => {
     const el = ref.current;

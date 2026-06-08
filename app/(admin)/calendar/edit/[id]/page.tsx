@@ -24,7 +24,7 @@ export default function EditCalendar(){
             }
         }
         fetchData()
-    },[id])
+    },[id, getById])
 
     return(
         <>

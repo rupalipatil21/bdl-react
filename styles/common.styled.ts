@@ -19,6 +19,7 @@ interface Props {
     fontsize?: number;
     props?: string;
     objectPosition?: string
+    isfullscreen?: boolean
 }
 
 const TopLink = {
@@ -1035,3 +1036,8 @@ export const MembershipList = styled(List)({
         }
     }
 })
+
+export const ImageThumb = styled(Box)<Props>(({isfullscreen}) => ({
+    width: isfullscreen ? "100vw" : "auto",
+    height: isfullscreen ? "100vh" : "auto",
+}))

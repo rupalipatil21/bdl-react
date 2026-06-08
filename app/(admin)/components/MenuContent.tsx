@@ -17,6 +17,7 @@ import { StyledPopover } from '@/styles/common.styled';
 import { LeftSubMemu } from '@/types/form';
 
 type MenuItem = {
+  id?: number
   link?: string;
   submenu?: {
     link: string;
@@ -57,11 +58,13 @@ export default function MenuContent() {
 
   const isCollapsed = drawerWidth === 72;
 
-  const handleOpen = (event: React.MouseEvent<HTMLElement>, menu: LeftSubMemu) => {
+  const handleOpen = (event: React.MouseEvent<HTMLElement>, menu: MenuItem) => {
     if (timeoutId.current) clearTimeout(timeoutId.current);
     if (isCollapsed) {
       setAnchorEl(event.currentTarget);
-      setSelectedMenu(menu.id)
+      if (menu.id !== undefined) {
+        setSelectedMenu(menu.id);
+      }
     }
   };
 

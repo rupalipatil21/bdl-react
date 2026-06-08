@@ -25,7 +25,7 @@ export default function AddExhibition(){
             }
         }
         fetchData()
-    },[id])
+    },[id, getById])
     
     return(
         <>

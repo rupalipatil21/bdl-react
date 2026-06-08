@@ -2,17 +2,17 @@
 
 import useCrud from "@/hooks/useCrud"
 import { useRefreshData } from "@/hooks/useRefreshData"
-import { FilterItem, FormValues } from "@/types/form"
+import { AccordianDetailsProps, FilterItem, FormValues } from "@/types/form"
 import { AccordionDetails, Divider, Grid, Typography } from "@mui/material"
 import Image from "next/image"
 import Link from "next/link"
 import React, { useCallback, useEffect } from "react"
 
-export default function AccordianDetails(category: string) {
+export default function AccordianDetails({category}: AccordianDetailsProps) {
     const { getAll } = useCrud("/api/crud-event")
     const fetchData = useCallback(async () => {
         return await getAll("calendar");
-    }, []);
+    }, [getAll]);
 
     const {refresh, data } = useRefreshData(fetchData)
     

@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/mongodb";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
 import { ObjectId } from "mongodb";
@@ -11,6 +11,17 @@ const sanitizeFileName = (name: string) => {
     .replace(/[^a-zA-Z0-9.-]/g, "") // remove unsafe chars
     .toLowerCase();
 };
+
+interface DataToInsert {
+  subtitles?: FormDataEntryValue[];
+  galleryLinks?: unknown[];
+  image?: string;
+  bannerImage?: string;
+  pdf?: string;
+  createdAt?: Date;
+  [key: string]: unknown;
+}
+
 
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
@@ -40,7 +51,7 @@ export async function GET(req: Request) {
 
 }
 
-export async function POST(req: NextResponse) {
+export async function POST(req: NextRequest) {
   try{ 
     const formData = await req.formData()
     const collectionName = formData.get("collection") as string
@@ -51,7 +62,7 @@ export async function POST(req: NextResponse) {
     const db = client.db(process.env.MONGODB_DB)
     const collection = db.collection(collectionName)
 
-    const dataToInsert:any = {}
+    const dataToInsert: DataToInsert = {}
 
     let imageFile: File | null = null;
     let bannerImageFile: File | null = null;
@@ -168,7 +179,7 @@ export async function PUT(req: Request) {
 
     const formData = await req.formData()
 
-    const updateData: any = {};
+    const updateData: DataToInsert = {};
 
     const saveFile = async (file: File) => {
       const bytes = await file.arrayBuffer();

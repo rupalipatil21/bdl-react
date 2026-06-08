@@ -90,7 +90,7 @@ export type FormErrors = Partial<Record<keyof FormValues, string | string[]>>;
 
 export type FormErrorsProp = {
   title?: string;
-  image?: string;
+  image?: string | string[]; 
   subtitles?: string[];
   upcominglink?: string;
   registerlink?: string;
@@ -103,8 +103,23 @@ export type ErrorType = {
     subtitles?: (string | undefined)[];
 };
 
-export interface FormProps {
-    initialData?: FormValues | null;
+export interface BaseFormData {
+    _id?: string;
+    title: string;
+    subtitles: [];
+    image: string;
+    bannerImage: string;
+    date: string;
+    currentExh: boolean;
+    upcominglink: string;
+    registerlink: string;
+    descriptionHTML: string;
+    category: string;
+    program?: string;
+}
+
+export interface FormProps<T extends BaseFormData> {
+    initialData?: T | null;
     form?: string;
 }
 
@@ -229,6 +244,7 @@ export type CarouselProps = {
 export type Bannerimage = {
     bannerImg: StaticImageData;
     alt: string
+    mt?: number
 }
 
 export type CollectionPopupProps = {
@@ -259,11 +275,11 @@ export type SearchProps = {
     onChange: (value: string) => void;
 }
 
-export type SelectEditInputCellProps = {
+export type SelectEditInputCellProps<T> = {
   id: string | number;
   value: string;
   field: string;
-  setRows: React.Dispatch<React.SetStateAction<any[]>>;
+  setRows: React.Dispatch<React.SetStateAction<T[]>>;
   refresh?: (force?: boolean) => void;
 };
 
@@ -271,3 +287,13 @@ export type LoginErrorProps = {
     email?: string;
     password?: string;
 }
+
+export type GalleryLink = {
+  key: string;
+  label: string;
+  link: string;
+};
+
+export type AccordianDetailsProps = {
+  category: string;
+};

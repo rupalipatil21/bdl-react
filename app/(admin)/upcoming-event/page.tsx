@@ -53,7 +53,7 @@ export default  function Page(){
 
     const fetchExhibition = useCallback(async () => {
         return await getAll("upcomingEvents");
-    }, []);
+    }, [getAll]);
     
     const { refresh, data, loading } = useRefreshData(fetchExhibition)
 
@@ -133,7 +133,7 @@ export default  function Page(){
                 <TableHeight>
                     <StyledDataGrid 
                         rows={filteredRows ? filteredRows : rows}
-                        columns={upcomingColumns(handleEdit, handleDelete, setRows, refresh)}
+                        columns={upcomingColumns(handleEdit, handleDelete)}
                         disableColumnMenu
                         disableColumnSorting
                         rowHeight={80}

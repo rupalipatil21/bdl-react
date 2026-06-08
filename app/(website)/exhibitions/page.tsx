@@ -13,7 +13,7 @@ export default function Page(){
     const headerHeight = useHeaderHeight()
     return(
         <>
-            <Banner bannerImg={bannerimg} alt="about banner" mt={headerHeight} />
+            <Banner bannerImg={bannerimg} alt="about banner" mt={headerHeight.headerHeight} />
             <ExhibitionContent />
             <CurrentExhibition />
             <PastExhibition />

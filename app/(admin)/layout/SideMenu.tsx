@@ -15,7 +15,7 @@ export default function SideMenu() {
         <Drawer
             variant={isMobile ? "temporary" : "permanent"}
             open={isMobile ? mobileOpen : true}
-            onClose={() => setMobileOpen(false)}
+            onClose={() => setMobileOpen?.(false)}
             ModalProps={{ keepMounted: true }}
             drawerwidth={drawerWidth}
         >

@@ -157,8 +157,7 @@ export const Drawer = styled(MuiDrawer)<Props>(({ drawerwidth }) => ({
     boxSizing: 'border-box',
     backgroundColor: 'background.paper',
     width: drawerwidth,
-    transition: (theme:any) =>
-        theme.transitions.create("width", {
+    transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.standard,
     }),

@@ -39,7 +39,7 @@ export default function Calendar() {
 
     const fetchData = useCallback( async () => {
         return await getAll("explore")
-    }, [])
+    }, [getAll])
 
     const { refresh, data, loading } = useRefreshData(fetchData)
     useEffect(()=>{

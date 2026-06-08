@@ -5,7 +5,7 @@ import { SelectEditInputCellProps } from "@/types/form";
 import { Select, SelectChangeEvent } from "@mui/material";
 import { useGridApiContext } from "@mui/x-data-grid";
 
-export default function SelectEditInputCell(props: SelectEditInputCellProps) {
+export default function SelectEditInputCell<T>(props: SelectEditInputCellProps<T>) {
     const { showSnackbar } = useSnackbar();
     const { id, value, field, setRows, refresh } = props;
     const apiRef = useGridApiContext();

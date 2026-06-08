@@ -11,7 +11,7 @@ export default function MissionStatement(){
     const headerHeight = useHeaderHeight()
     return(
         <>
-            <Banner bannerImg={bannerimg} alt="about banner" mt={headerHeight} />
+            <Banner bannerImg={bannerimg} alt="about banner" mt={headerHeight.headerHeight} />
             <CommonContent />
             <StyledContainer pt="30px !important">
                 <MoreAtBdl />

@@ -5,7 +5,7 @@ export default function useCrud(baseUrl: string) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const request = useCallback( async (method: string, collection?: string, body?: any, id?: string, isLatest?: string, where?: Record<string, ClauseType>) =>{
+    const request = useCallback( async<TBody> (method: string, collection?: string, body?: TBody, id?: string, isLatest?: string, where?: Record<string, ClauseType>) =>{
         try{
             setLoading(true)
             setError(null)
@@ -58,16 +58,58 @@ export default function useCrud(baseUrl: string) {
         }
     }, [baseUrl])
 
+    const getAll = useCallback(
+        (collection: string) => request("GET", collection),
+        [request]
+    );
+
+    const getById = useCallback(
+        (collection: string, id: string) =>
+            request("GET", collection, undefined, id),
+        [request]
+    );
+
+    const getByClause = useCallback(
+        (collection: string, where: Record<string, ClauseType>) =>
+            request("GET", collection, undefined, undefined, undefined, where),
+        [request]
+    );
+
+    const getLatest = useCallback(
+        (collection: string, isLatest: string) =>
+            request("GET", collection, undefined, undefined, isLatest),
+        [request]
+    );
+    
+    const saveData = useCallback(
+        (collection: string, data: FormData) =>
+            request("POST", collection, data),
+        [request]
+    );
+
+    const update = useCallback(
+        (collection: string, id: string, data: FormData) =>
+            request("PUT", collection, data, id),
+        [request]
+    );
+
+    const deleteById = useCallback(
+        (collection: string, id: string) =>
+            request("DELETE", collection, undefined, id),
+        [request]
+    );
+
+
     return {
         loading,
         error,
-        getAll: (collection: string) => request("GET", collection),
-        getById: (collection: string, id: string) => request("GET", collection, undefined, id),
-        getByClause: (collection: string, where: Record<string, ClauseType>) => request("GET", collection, undefined, undefined, undefined, where),
-        getLatest: (collection: string, isLatest: string) => request("GET", collection, undefined, undefined, isLatest),
-        saveData: (collection: string, data: FormData) => request("POST", collection, data),
-        update: (collection: string, id: string, data: FormData) => request("PUT", collection, data, id),
-        deleteById: (collection: string, id: string) => request("DELETE", collection, undefined, id),
+        getAll,
+        getById,
+        getByClause,
+        getLatest,
+        saveData,
+        update,
+        deleteById,
     }
 
 }

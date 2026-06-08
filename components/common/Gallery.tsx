@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "primereact/button";
 import { Galleria } from "primereact/galleria";
 import { classNames } from "primereact/utils";
@@ -16,6 +16,7 @@ import PauseIcon from '@mui/icons-material/Pause';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import { Box } from "@mui/material";
 import { GalleryProp, Index, ItemTemplate } from "@/types/form";
+import Image from "next/image";
 
 export default function Gallery({ galleryimages }: GalleryProp) { 
   const [images, setImages] = useState<ItemTemplate[]>([]);
@@ -33,10 +34,19 @@ export default function Gallery({ galleryimages }: GalleryProp) {
   ];
 
   useEffect(() => {
+
+    const bindDocumentListeners = () => {
+      document.addEventListener("fullscreenchange", onFullScreenChange);
+    };
+
+    const unbindDocumentListeners = () => {
+      document.removeEventListener("fullscreenchange", onFullScreenChange);
+    };
+
     galleryimages.getImages().then((data) => setImages(data));
     bindDocumentListeners();
     return () => unbindDocumentListeners();
-  }, []);
+  }, [galleryimages]);
 
   const onItemChange = (e: Index) => { 
     setActiveIndex(e.index);
@@ -61,17 +71,15 @@ export default function Gallery({ galleryimages }: GalleryProp) {
     else openFullScreen();
   };
 
-  const bindDocumentListeners = () => {
-    document.addEventListener("fullscreenchange", onFullScreenChange);
-  };
-
-  const unbindDocumentListeners = () => {
-    document.removeEventListener("fullscreenchange", onFullScreenChange);
-  };
-
   const thumbnailTemplate = (item: ItemTemplate) => (
     <div className="thumbnail-wrapper">
-      <img src={item.thumbnailImageSrc} alt={item.alt} />
+      {/* <img src={item.thumbnailImageSrc} alt={item.alt} /> */}
+      <Image
+        src={item.thumbnailImageSrc!}
+        alt={item.alt!}
+        width={150}
+        height={100}
+      />
       <div className="caption">
         <h4>{item.title}</h4>
       </div>
@@ -79,6 +87,7 @@ export default function Gallery({ galleryimages }: GalleryProp) {
   );
 
   const itemTemplate = (item: ItemTemplate) => (
+    /* eslint-disable-next-line @next/next/no-img-element */
     <img
       src={item.itemImageSrc}
       alt={item.alt}
@@ -89,6 +98,13 @@ export default function Gallery({ galleryimages }: GalleryProp) {
         maxWidth: "100%",
       }}
     />
+    // <ImageThumb isfullscreen={isFullScreen}>
+    //   <Image 
+    //     src={item.itemImageSrc!}
+    //     alt={item.alt!}
+    //     fill
+    //   />
+    // </ImageThumb>
   );
 
   const renderFooter = () => {

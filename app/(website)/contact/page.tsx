@@ -17,7 +17,7 @@ export default function Page(){
     const headerHeight = useHeaderHeight();
     return(
         <>
-            <Banner bannerImg={bannerimg} alt="about banner" mt={headerHeight} />
+            <Banner bannerImg={bannerimg} alt="about banner" mt={headerHeight.headerHeight} />
             <StyledGridContainer container>
                 <Grid size={{xs: 12}} offset={{xs:0, md:1}}>
                     <Typography variant="title1" color="custom.black">Contact</Typography>

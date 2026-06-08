@@ -15,9 +15,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Image from "next/image";
 import useInput from "@/hooks/useInput";
-import { ChipData, FormErrors, FormProps } from "@/types/form";
+import { BaseFormData, ChipData, FormErrors, FormProps } from "@/types/form";
+import dynamic from "next/dynamic";
 
-export default function ExhibitionForm({ initialData, form }: FormProps){
+export default function ExhibitionForm<T extends BaseFormData>({ initialData, form }: FormProps<T>){
     const [recordId, setRecordId] = useState<string | null>(null)
     const isEditMode = Boolean(recordId || initialData?._id);
     const { values, subtitlles, handleInputChange, handleAddMore, handleRemove, handleFileChange1, preview, setPreview, removeImage1, handleRemoveImage, bannerpreview, setBannerPreview, pdfFile, errors, setErrors, schema1, setValues, setSubtitles, imageFile, handleSelectChange, bannerremoveImage, bannerImageFile } = useInput({
@@ -66,7 +67,7 @@ export default function ExhibitionForm({ initialData, form }: FormProps){
         }
         
         if(initialData?._id) {setRecordId(initialData?._id)}
-    },[initialData])
+    },[initialData, setValues, setSubtitles, subtitlles.length])
 
     const handleClick = (ref:React.RefObject<HTMLInputElement | null>) => {
         ref.current?.click();
@@ -179,6 +180,11 @@ export default function ExhibitionForm({ initialData, form }: FormProps){
 
     const width = form === "calendar" ? 270 : 458;
     const height = form === "calendar" ? 200 : 277;
+
+    const TiptapEditor = dynamic(
+        () => import("../components/common/TiptapEditor"),
+        { ssr: false }
+    );
 
     return(
         <>
@@ -341,7 +347,8 @@ export default function ExhibitionForm({ initialData, form }: FormProps){
                     </>}
                     <Grid size={12}>
                         <StyledRichTextEditor>
-                            <RichTextEditor
+                            <TiptapEditor content={values.descriptionHTML} />
+                            {/* <RichTextEditor
                                 ref={rteRef}
                                 extensions={[
                                     StarterKit.configure({
@@ -367,7 +374,7 @@ export default function ExhibitionForm({ initialData, form }: FormProps){
                                 )}
                                 immediatelyRender={false}
                                 content={values.descriptionHTML}
-                            />
+                            /> */}
                         </StyledRichTextEditor>
                     </Grid>
                     <Grid size={{xs: 12, md: 6, lg: 4}}>   

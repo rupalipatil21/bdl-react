@@ -9,6 +9,18 @@ import { LeftMenu } from "@/styles/about.styled";
 import { useState } from "react";
 import { pastmenu } from "@/lib/pastexhibition.data";
 
+type SubMenuItem = {
+  item: string;
+  url: string;
+};
+
+type MenuItem = {
+  item: string;
+  url: string;
+  subItem?: SubMenuItem[];
+};
+
+
 export default function StickyLeftSidebar(){
     const theme = useTheme()
     const pathname = usePathname()
@@ -21,7 +33,7 @@ export default function StickyLeftSidebar(){
         setOpen(!open);
     };
 
-    let currentMenu: any[] = []
+    let currentMenu: MenuItem[] = []
     let menuTitle = ""
     switch (true) {
         case pathname.includes("/about") :
@@ -75,7 +87,7 @@ export default function StickyLeftSidebar(){
     }
 
 
-    const [clickedMenu, setClickedMenu] = useState(currentMenu?.[0]?.url)
+    const [, setClickedMenu] = useState(currentMenu?.[0]?.url)
     function handleActiveMenu(url: string){
         setClickedMenu(url)
     }
@@ -143,7 +155,7 @@ export default function StickyLeftSidebar(){
                                         pathname.startsWith("/collections") &&
                                         !pathname.startsWith("/collections/galleries") &&
                                         !pathname.startsWith("/collections/library-n-research") &&
-                                        menu.subItem?.map((submenu:any, index:number)=>{
+                                        menu.subItem?.map((submenu, index)=>{
                                             const activeClass = pathname === submenu.url ? "active-submenu" : undefined;
                                             return(
                                                 <Link href={submenu.url} key={index} className={activeClass}><Typography variant="list_title" color="custom.grey" padding="2px 0">{submenu.item}</Typography></Link>

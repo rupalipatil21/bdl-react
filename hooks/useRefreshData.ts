@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 export function useRefreshData<T>(fetch: () => Promise<T>) {
     const [loading, setLoading] = useState(false)
-    const [data, setData] = useState<any>(null)
+    const [data, setData] = useState<T | null>(null)
     const refresh = useCallback(async () => {
         setLoading(true)
         try {

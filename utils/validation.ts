@@ -18,7 +18,7 @@ export function validateField(value: FieldValue, rules: ValidationRule[]){
                 if (Array.isArray(value)) {
                     const itemErrors = value.map(v =>
                         !v || v.trim() === "" ? (rule.message || "This field is required") : undefined
-                    );
+                    ).filter((error): error is string => error !== undefined);;
 
                     if (itemErrors.some(e => e !== undefined)) {
                         return itemErrors; // return array of errors
@@ -45,11 +45,15 @@ export function validateField(value: FieldValue, rules: ValidationRule[]){
     }
 }
 
-export function validateForm(formData: FormDataType, schema: ValidateSchema) {    
-  const errors: any = {};
+export function validateForm(
+  formData: FormDataType,
+  schema: ValidateSchema
+): Partial<Record<string, string | string[]>> {
+  const errors: Partial<Record<string, string | string[]>> = {};
 
   for (const field in schema) {
     const fieldError = validateField(formData[field], schema[field]);
+
     if (fieldError) {
       errors[field] = fieldError;
     }

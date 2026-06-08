@@ -426,7 +426,7 @@ export default function DialogPage({fullscreen, open, mode, onClose, editEvent, 
                                 </Grid>
                             
                                 <Box width="100%">
-                                    <FileWrapper onClick={showUpload ? handleClick : undefined} iserror={errors.image}>
+                                    <FileWrapper onClick={showUpload ? handleClick : undefined} iserror={!!errors.image}>
                                         {showUpload && (
                                         <><HiddenInput
                                             type="file"
@@ -471,7 +471,7 @@ export default function DialogPage({fullscreen, open, mode, onClose, editEvent, 
                                         )}
                                     </FileWrapper>
                                     <Stack direction="row" justifyContent="space-between" >
-                                        <ErrorTypography variant="font_12"  iserror={errors.image}>{errors.image ? errors.image : ""}</ErrorTypography>
+                                        <ErrorTypography variant="font_12"  iserror={!!errors.image}>{errors.image ? errors.image : ""}</ErrorTypography>
                                         <Typography variant="imgText">Image dimensions {width}X{height}</Typography>
                                     </Stack>
                                     

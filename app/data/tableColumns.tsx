@@ -1,11 +1,11 @@
-import { GridActionsCell, GridActionsCellItem, GridColDef, GridColTypeDef, GridRenderCellParams, GridRenderEditCellParams, useGridApiContext } from "@mui/x-data-grid";
-import { Box, Chip, IconButton, InputBase, InputBaseProps, Paper, Popper, Tooltip, Typography } from "@mui/material";
+import { GridActionsCell, GridActionsCellItem, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { Box, Chip, IconButton, Tooltip, Typography } from "@mui/material";
 import { AvatarUI, GalleryLinkBox, ImageBox } from "@/styles/admin.styled";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import React from "react";
 import Link from "next/link";
-import SelectEditInputCell from "../(admin)/components/common/SelectEditInputCell";
+import { GalleryLink } from "@/types/form";
+// import SelectEditInputCell from "../(admin)/components/common/SelectEditInputCell";
 
 const stripHtml = (html: string) => {
   if (!html) return "";
@@ -14,74 +14,74 @@ const stripHtml = (html: string) => {
   return div.textContent || div.innerText || "";
 };
 
-const renderSelectEditInputCell = (setRows: (rows: any[]) => void, refresh: () => void): GridColDef['renderCell'] => (params) => {
-  return <SelectEditInputCell {...params} setRows={setRows} refresh={refresh}  />;
-};
+// const renderSelectEditInputCell = (setRows: (rows: any[]) => void, refresh: () => void): GridColDef['renderCell'] => (params) => {
+//   return <SelectEditInputCell {...params} setRows={setRows} refresh={refresh}  />;
+// };
 
 
-function EditTextarea(props: GridRenderEditCellParams<any, string>) {
-  const { id, field, value, colDef, hasFocus } = props;
-  const [valueState, setValueState] = React.useState(value);
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>();
-  const [inputRef, setInputRef] = React.useState<HTMLInputElement | null>(null);
-  const apiRef = useGridApiContext();
+// function EditTextarea(props: GridRenderEditCellParams<any, string>) {
+//   const { id, field, value, colDef, hasFocus } = props;
+//   const [valueState, setValueState] = React.useState(value);
+//   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>();
+//   const [inputRef, setInputRef] = React.useState<HTMLInputElement | null>(null);
+//   const apiRef = useGridApiContext();
 
-  React.useLayoutEffect(() => {
-    if (hasFocus && inputRef) {
-      inputRef.focus();
-    }
-  }, [hasFocus, inputRef]);
+//   React.useLayoutEffect(() => {
+//     if (hasFocus && inputRef) {
+//       inputRef.focus();
+//     }
+//   }, [hasFocus, inputRef]);
 
-  const handleRef = React.useCallback((el: HTMLElement | null) => {
-    setAnchorEl(el);
-  }, []);
+//   const handleRef = React.useCallback((el: HTMLElement | null) => {
+//     setAnchorEl(el);
+//   }, []);
 
-  const handleChange = React.useCallback<NonNullable<InputBaseProps['onChange']>>(
-    (event) => {
-      const newValue = event.target.value;
-      setValueState(newValue);
-      apiRef.current.setEditCellValue(
-        { id, field, value: newValue, debounceMs: 200 },
-        event,
-      );
-    },
-    [apiRef, field, id],
-  );
+//   const handleChange = React.useCallback<NonNullable<InputBaseProps['onChange']>>(
+//     (event) => {
+//       const newValue = event.target.value;
+//       setValueState(newValue);
+//       apiRef.current.setEditCellValue(
+//         { id, field, value: newValue, debounceMs: 200 },
+//         event,
+//       );
+//     },
+//     [apiRef, field, id],
+//   );
 
-  return (
-    <div style={{ position: 'relative', alignSelf: 'flex-start' }}>
-      <div
-        ref={handleRef}
-        style={{
-          height: 1,
-          width: colDef.computedWidth,
-          display: 'block',
-          position: 'absolute',
-          top: 0,
-        }}
-      />
-      {anchorEl && (
-        <Popper open anchorEl={anchorEl} placement="bottom-start">
-          <Paper elevation={1} sx={{ p: 1, minWidth: colDef.computedWidth }}>
-            <InputBase
-              multiline
-              rows={4}
-              value={valueState}
-              sx={{ textarea: { resize: 'both' }, width: '100%' }}
-              onChange={handleChange}
-              inputRef={(ref) => setInputRef(ref)}
-            />
-          </Paper>
-        </Popper>
-      )}
-    </div>
-  );
-}
+//   return (
+//     <div style={{ position: 'relative', alignSelf: 'flex-start' }}>
+//       <div
+//         ref={handleRef}
+//         style={{
+//           height: 1,
+//           width: colDef.computedWidth,
+//           display: 'block',
+//           position: 'absolute',
+//           top: 0,
+//         }}
+//       />
+//       {anchorEl && (
+//         <Popper open anchorEl={anchorEl} placement="bottom-start">
+//           <Paper elevation={1} sx={{ p: 1, minWidth: colDef.computedWidth }}>
+//             <InputBase
+//               multiline
+//               rows={4}
+//               value={valueState}
+//               sx={{ textarea: { resize: 'both' }, width: '100%' }}
+//               onChange={handleChange}
+//               inputRef={(ref) => setInputRef(ref)}
+//             />
+//           </Paper>
+//         </Popper>
+//       )}
+//     </div>
+//   );
+// }
 
-const multilineColumn: GridColTypeDef = {
-  type: 'string',
-  renderEditCell: (params) => <EditTextarea {...params} />,
-};
+// const multilineColumn: GridColTypeDef = {
+//   type: 'string',
+//   renderEditCell: (params) => <EditTextarea {...params} />,
+// };
 
 const CATEGORY_LABELS: Record<string, string> = {
   exhibitions: "Exhibitions",
@@ -108,7 +108,7 @@ export const exhibitionCurrentColumns = (onEdit: (id:string) => void, onDelete: 
         sortable: false,
         filterable: false,
         editable: true,
-        ...multilineColumn,
+        // ...multilineColumn,
         renderCell:(params: GridRenderCellParams) => {
             const text = stripHtml(params.value);
             return(
@@ -134,7 +134,7 @@ export const exhibitionCurrentColumns = (onEdit: (id:string) => void, onDelete: 
         width: 230,
         renderCell: (params) => (
             <GalleryLinkBox>
-                {params.value?.map((item: any) => (
+                {params.value?.map((item: GalleryLink) => (
                     <Typography key={item.key}>
                         <Link
                             href={item.link}
@@ -203,7 +203,7 @@ export const exhibitionPastColumns =(onEdit: (id: string) => void, onDelete: (id
         sortable: false,
         filterable: false,
         editable: true,
-        ...multilineColumn,
+        // ...multilineColumn,
         renderCell: (params:GridRenderCellParams) => {
             const text = stripHtml(params.value);
             return (
@@ -233,7 +233,7 @@ export const exhibitionPastColumns =(onEdit: (id: string) => void, onDelete: (id
         width: 230,
         renderCell: (params) => (
             <GalleryLinkBox >
-                {params.value?.map((item: any) => (
+                {params.value?.map((item: GalleryLink) => (
                     <Typography key={item.key}>
                     <Link
                     href={item.link}
@@ -285,7 +285,7 @@ export const exhibitionPastColumns =(onEdit: (id: string) => void, onDelete: (id
     },
 ]
 
-export const upcomingColumns = (onEdit: (id: string) => void, onDelete: (id: string) => void, setRows: (rows: any[]) => void, refresh: () => void): GridColDef[] => [
+export const upcomingColumns = (onEdit: (id: string) => void, onDelete: (id: string) => void): GridColDef[] => [
     {field: "title", headerName: "Title", width: 200,
         renderCell: (params) => (
             <Tooltip title={params.value} placement="bottom-start">{params.value}</Tooltip>
@@ -322,7 +322,7 @@ export const upcomingColumns = (onEdit: (id: string) => void, onDelete: (id: str
                 <Chip label={status} color={color} />
             )
         },
-        renderEditCell: renderSelectEditInputCell(setRows, refresh)
+        // renderEditCell: renderSelectEditInputCell(setRows, refresh)
     },
     { field: "actions", type: "actions", headerName: "", align: "right",
         renderCell: (params) => {
