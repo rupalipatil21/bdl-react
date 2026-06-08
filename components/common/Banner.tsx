@@ -1,5 +1,4 @@
 "use client"
-import { useHeaderHeight } from "@/app/context/HeaderContext";
 import { BannerContainer } from "@/styles/common.styled";
 import { Bannerimage } from "@/types/form";
 import Image from "next/image";

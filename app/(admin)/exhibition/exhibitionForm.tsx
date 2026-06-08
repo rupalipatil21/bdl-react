@@ -3,8 +3,7 @@
 import { WrapInput, AddMoreButton, StyledRichTextEditor, FileWrapper, HiddenInput, PreviewBox, ErrorTypography, GridScroll, VisuallyHiddenInput, RemoveIcon } from "@/styles/admin.styled";
 import { CloseOutlined } from "@mui/icons-material";
 import { Box, Grid, TextField, Stack, Button, Typography, FormControlLabel, Checkbox, Divider, FormControl, InputLabel, MenuItem, Select, FormHelperText } from "@mui/material";
-import StarterKit from "@tiptap/starter-kit";
-import { RichTextEditor, MenuControlsContainer, MenuSelectHeading, MenuDivider, MenuButtonBold, MenuButtonItalic, MenuButtonOrderedList, MenuButtonBulletedList, RichTextEditorRef } from "mui-tiptap";
+import { RichTextEditorRef } from "mui-tiptap";
 import GalleryPopover from "../components/GalleryPopover";
 import { useEffect, useRef, useState } from "react";
 import { validateForm } from "@/utils/validation";

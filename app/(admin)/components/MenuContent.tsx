@@ -14,7 +14,6 @@ import { usePathname } from 'next/navigation';
 import { theme } from '@/styles/theme';
 import { useDrawer } from '@/app/context/DrawerContext';
 import { StyledPopover } from '@/styles/common.styled';
-import { LeftSubMemu } from '@/types/form';
 
 type MenuItem = {
   id?: number
