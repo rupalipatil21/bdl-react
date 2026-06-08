@@ -149,6 +149,7 @@ export default function Calendar() {
                             rowSelectionModel={rowSelectionModel}
                             disableColumnSorting
                             disableColumnMenu
+                            getRowId={(row)=> row._id}
                         />
                     </TableCard>
                 </Grid>
