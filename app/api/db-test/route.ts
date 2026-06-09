@@ -2,24 +2,24 @@
 import { MongoClient } from "mongodb";
 
 export async function GET() {
-  // try {
-  //   const client = await connectDB();
+  try {
+    const client = await connectDB();
 
-  //   const db = client.db(process.env.MONGODB_DB);
+    const db = client.db(process.env.MONGODB_DB);
 
-  //   const collections = await db.listCollections().toArray();
+    const collections = await db.listCollections().toArray();
 
-  //   return Response.json({
-  //     success: true,
-  //     database: db.databaseName,
-  //     collections: collections.map(c => c.name),
-  //   });
-  // } catch (err) {
-  //   return Response.json({
-  //     success: false,
-  //     error: err instanceof Error ? err.message : String(err),
-  //   });
-  // }
+    return Response.json({
+      success: true,
+      database: db.databaseName,
+      collections: collections.map(c => c.name),
+    });
+  } catch (err) {
+    return Response.json({
+      success: false,
+      error: err instanceof Error ? err.message : String(err),
+    });
+  }
 
   // const uri = process.env.MONGODB_URI || "";
 
@@ -30,21 +30,21 @@ export async function GET() {
   //   length: uri.length,
   // });
 
-  try {
-    const client = new MongoClient(process.env.MONGODB_URI!);
+  // try {
+  //   const client = new MongoClient(process.env.MONGODB_URI!);
 
-    await client.connect();
+  //   await client.connect();
 
-    await client.db("admin").command({ ping: 1 });
+  //   await client.db("admin").command({ ping: 1 });
 
-    return Response.json({
-      success: true,
-      message: "Connected",
-    });
-  } catch (e) {
-    return Response.json({
-      success: false,
-      error: String(e),
-    });
-  }
+  //   return Response.json({
+  //     success: true,
+  //     message: "Connected",
+  //   });
+  // } catch (e) {
+  //   return Response.json({
+  //     success: false,
+  //     error: String(e),
+  //   });
+  // }
 }
