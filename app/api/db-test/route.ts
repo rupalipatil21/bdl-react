@@ -1,5 +1,5 @@
-// import { connectDB } from "@/lib/mongodb";
-import { MongoClient } from "mongodb";
+import { connectDB } from "@/lib/mongodb";
+// import { MongoClient } from "mongodb";
 
 export async function GET() {
   try {
